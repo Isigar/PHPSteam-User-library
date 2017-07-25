@@ -5,11 +5,15 @@ This library may help someone who want to use steam API and use it to fetch user
 ### CONTENT:
 * user summary
 * friends
+* game stats
+* cache results
+* recently played games
+* inventory (with item details)
 
 ### TODO:
-* cache results
 * achievement
-* game stats
+* trade support
+
 
 ## How to use it?
 #### HomepagePresenter
@@ -18,9 +22,21 @@ public function renderSingle()
 {
     $player = new Player("76561198151608925");
     $request = new Request();
-    $request->getPlayerSummaries($player);
-    $request->getPlayerFriends($player,5);
+    $request->getPlayerFriends($player,2);
+    $request->getPlayerRecentlyPlayedGames($player);
+    $request->getPlayerInventory($player,Games::CSGO);
     Dumper::dump($player);
+}
+```
+##### But what we do if we need cache results?
+> We will use new functions and we will load full user profile and system automaticly cache it. It's cache function call so if some result will be different it will automaticly reload data.
+```php
+public function renderSingle()
+{
+    $player = new Player("76561198151608925");
+    $request = new Request();
+    $player = $request->getFullData($player); // This function will load full profile (profile, recent games, friends, inventory)
+    $this->template->items = $player->getInventory()->getData();
 }
 ```
 #### Dump:
