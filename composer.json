@@ -12,5 +12,5 @@
             "email": "info@relisoft.cz"
         }
     ],
-    "minimum-stability": "dev"
+    "minimum-stability": "stable"
 }
