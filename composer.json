@@ -3,7 +3,8 @@
     "description": "Steam PHP library for getting data from API",
     "type": "library",
     "require": {
-        "nette/nette": "^2.4"
+        "nette/utils": "^2.4",
+        "nette/caching": "^2.4"
     },
     "license": "MIT",
     "authors": [
