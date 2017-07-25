@@ -11,15 +11,46 @@ namespace Relisoft\Steam\Src\Api;
 
 use Relisoft\Steam\Src\IsNot;
 
+/**
+ * Class Inventory
+ * @package Relisoft\Steam\Src\Api
+ */
 class Inventory
 {
+    /**
+     * @var \stdClass $items
+     * Original source
+     */
     private $items;
+    /**
+     * @var \stdClass $description
+     * Original source
+     */
     private $description;
+    /**
+     * @var int $count
+     * Count of items
+     */
     private $count;
+    /**
+     * @var boolean
+     * If load of items was success
+     */
     private $success;
+    /**
+     * @var \stdClass $data
+     * Items with desciptions in class Item and ItemDesciption
+     */
     private $data;
 
-    public function __construct($items,$description,$count,$success)
+    /**
+     * Inventory constructor.
+     * @param $items
+     * @param $description
+     * @param $count
+     * @param $success
+     */
+    public function __construct($items, $description, $count, $success)
     {
         $this->setCount($count);
         $this->setDescription($description);
@@ -27,6 +58,9 @@ class Inventory
         $this->setSuccess($success);
     }
 
+    /**
+     * @throws ApiException
+     */
     public function pairItems()
     {
         if($this->getSuccess())

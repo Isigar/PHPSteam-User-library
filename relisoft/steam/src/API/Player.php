@@ -11,14 +11,42 @@ namespace Relisoft\Steam\Src\Api;
 
 use Nette\Utils\DateTime;
 
+/**
+ * Class Player
+ * @package Relisoft\Steam\Src\Api
+ */
 class Player
 {
+    /**
+     * @var int $steamid
+     */
     private $steamid;
+    /**
+     * @var string $personaname
+     */
     private $personaname;
+    /**
+     * @var string $profileurl
+     */
     private $profileurl;
+    /**
+     * @var string $avatar
+     * URL of image
+     */
     private $avatar;
+    /**
+     * @var string $avatarmedium
+     * URL of image
+     */
     private $avatarmedium;
+    /**
+     * @var string $avatarfull
+     * URL of image
+     */
     private $avatarfull;
+    /**
+     * @var int $personastate
+     */
     private $personastate;
     /**
      * @var int $state
@@ -54,6 +82,10 @@ class Player
      */
     private $inventory;
 
+    /**
+     * Player constructor.
+     * @param null $steamid
+     */
     public function __construct($steamid = null)
     {
         $this->setSteamid($steamid);

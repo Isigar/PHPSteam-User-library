@@ -1,0 +1,16 @@
+{
+    "name": "relisoft/php-steam-user-library",
+    "description": "Steam PHP library for getting data from API",
+    "type": "library",
+    "require": {
+        "nette/nette": "^2.4"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Isigar",
+            "email": "info@relisoft.cz"
+        }
+    ],
+    "minimum-stability": "dev"
+}
