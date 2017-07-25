@@ -17,7 +17,6 @@ use Tracy\Dumper;
 class Request
 {
     private $key = "2C517FA68EA88AC05B49140A9C06FA24";
-    private $lastRequest;
 
     public function getPlayerSummaries(Player $player)
     {
@@ -87,6 +86,43 @@ class Request
                     $friends = new Friends();
                     $friends->setFriends($data);
                     $player->setFriends((object)$limit);
+                    return $this;
+                }
+            }
+            else
+            {
+                throw new ApiException("Wrong format! ");
+            }
+        }
+    }
+
+    public function getPlayerRecentlyPlayedGames(Player $player,$limit = 10)
+    {
+        if(is_null($player->getSteamid()))
+        {
+            throw new ApiException("Player has no steam ID!");
+        }
+        else
+        {
+            $url = 'http://api.steampowered.com/IPlayerService/GetRecentlyPlayedGames/v0001/?key='.$this->key.'&steamid='.$player->getSteamid()."&format=json";
+            $data = file_get_contents($url);
+            $clone = $data;
+            
+            if(Easy::isJson($data))
+            {
+                $data = Json::decode($data)->response->games;
+                $total_count = Json::decode($clone)->response->total_count;
+
+                if(!isset($data))
+                {
+                    throw new ApiException("Player not exists! ".$player->getSteamid());
+                }
+                else
+                {
+                    $games = new Games();
+                    $games->setGames($data);
+                    $games->setTotalCount($total_count);
+                    $player->setGames($games);
                     return $this;
                 }
             }

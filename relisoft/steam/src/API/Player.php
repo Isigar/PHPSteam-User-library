@@ -45,6 +45,10 @@ class Player
      * @var Friends $friends
      */
     private $friends;
+    /**
+     * @var Games $games
+     */
+    private $games;
 
     public function __construct($steamid = null)
     {
@@ -266,6 +270,26 @@ class Player
         $this->friends = $friends;
         return $this;
     }
+
+    /**
+     * @return Games
+     */
+    public function getGames()
+    {
+        return $this->games;
+    }
+
+    /**
+     * @param Games $games
+     * @return Player
+     */
+    public function setGames($games)
+    {
+        $this->games = $games;
+        return $this;
+    }
+
+
 
 
 

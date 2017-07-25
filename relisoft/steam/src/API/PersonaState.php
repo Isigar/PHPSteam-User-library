@@ -19,7 +19,7 @@ class PersonaState
     const LOOKING_TRADE = 5;
     const LOOKING_PLAY = 6;
 
-    public function getVerbState($val)
+    public static function getVerbState($val)
     {
         switch ($val)
         {
