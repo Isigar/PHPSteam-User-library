@@ -2,6 +2,9 @@
 
 This library may help someone who want to use steam API and use it to fetch user data. With few lines of code you can fetch everything about user.
 
+#### Install:
+composer require relisoft/php-steam-user-library
+
 ### CONTENT:
 * user summary
 * friends
