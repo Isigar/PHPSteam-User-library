@@ -9,6 +9,8 @@
 namespace Relisoft\Steam\Src\Api;
 
 
+use Nette\Caching\Cache;
+use Nette\Caching\Storages\FileStorage;
 use Nette\Utils\Json;
 use Relisoft\Steam\Src\Easy;
 use Relisoft\Steam\Src\IsNot;
@@ -17,6 +19,18 @@ use Tracy\Dumper;
 class Request
 {
     private $key = "2C517FA68EA88AC05B49140A9C06FA24";
+
+    /**
+     * @var Cache $cache
+     */
+    private $cache;
+
+    public function __construct()
+    {
+        $storage = new FileStorage(__DIR__."/../../temp/");
+        $cache = new Cache($storage);
+        $this->cache = $cache;
+    }
 
     public function getPlayerSummaries(Player $player)
     {
@@ -50,7 +64,7 @@ class Request
                     $player->setProfilestate($playdata->profilestate);
                     $player->setProfileurl($playdata->profileurl);
                     $player->setState($playdata->personastate);
-                    return $this;
+                    return $player;
                 }
             }
             else
@@ -86,7 +100,7 @@ class Request
                     $friends = new Friends();
                     $friends->setFriends($data);
                     $player->setFriends((object)$limit);
-                    return $this;
+                    return $player;
                 }
             }
             else
@@ -107,7 +121,7 @@ class Request
             $url = 'http://api.steampowered.com/IPlayerService/GetRecentlyPlayedGames/v0001/?key='.$this->key.'&steamid='.$player->getSteamid()."&format=json";
             $data = file_get_contents($url);
             $clone = $data;
-            
+
             if(Easy::isJson($data))
             {
                 $data = Json::decode($data)->response->games;
@@ -123,7 +137,7 @@ class Request
                     $games->setGames($data);
                     $games->setTotalCount($total_count);
                     $player->setGames($games);
-                    return $this;
+                    return $player;
                 }
             }
             else
@@ -133,6 +147,50 @@ class Request
         }
     }
 
+    public function getPlayerInventory(Player $player,$game = Games::CSGO)
+    {
+        if(is_null($player->getProfileurl()))
+        {
+            throw new ApiException("Player has no profile url!");
+        }
+        else
+        {
+            $url = $player->getProfileurl()."/inventory/json/".$game."/2";
+            $data = file_get_contents($url);
+
+            if(Easy::isJson($data))
+            {
+                $decode = Json::decode($data);
+                $items = $decode->rgInventory;
+                $descriptions = $decode->rgDescriptions;
+                $success = $decode->success;
+
+                $inventory = new Inventory($items,$descriptions,count($items),$success);
+                $inventory->pairItems();
+                $player->setInventory($inventory);
+                return $player;
+            }
+            else
+            {
+                throw new ApiException("Wrong format! ");
+            }
+        }
+    }
+
+    public function getFullData(Player $player)
+    {
+        $player = $this->cache->call([$this,'getPlayerSummaries'],$player);
+        $player = $this->cache->call([$this,'getPlayerFriends'],$player);
+        $player = $this->cache->call([$this,'getPlayerRecentlyPlayedGames'],$player);
+        $player = $this->cache->call([$this,'getPlayerInventory'],$player);
+        return $player;
+    }
+
+    public function saveRequest(Player $player)
+    {
+
+
+    }
 
     /**
      * @return mixed

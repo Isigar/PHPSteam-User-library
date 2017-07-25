@@ -49,10 +49,32 @@ class Player
      * @var Games $games
      */
     private $games;
+    /**
+     * @var Inventory $inventory
+     */
+    private $inventory;
 
     public function __construct($steamid = null)
     {
         $this->setSteamid($steamid);
+    }
+
+    /**
+     * @return Inventory
+     */
+    public function getInventory()
+    {
+        return $this->inventory;
+    }
+
+    /**
+     * @param Inventory $inventory
+     * @return Player
+     */
+    public function setInventory($inventory)
+    {
+        $this->inventory = $inventory;
+        return $this;
     }
 
     /**
