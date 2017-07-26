@@ -9,15 +9,41 @@
 namespace Relisoft\Steam\Src\Api;
 
 
+/**
+ * Class Item
+ * @package Relisoft\Steam\Src\Api
+ */
 class Item
 {
+    /**
+     * @var int $id
+     */
     private $id;
+    /**
+     * @var int $classid
+     */
     private $classid;
+    /**
+     * @var int $instanceid
+     */
     private $instanceid;
+    /**
+     * @var int $amount
+     */
     private $amount;
+    /**
+     * @var int $pos
+     */
     private $pos;
+    /**
+     * @var \stdClass $description
+     */
     private $description;
 
+    /**
+     * Item constructor.
+     * @param $id
+     */
     public function __construct($id)
     {
         $this->setId($id);

@@ -9,15 +9,41 @@
 namespace Relisoft\Steam\Src\Api;
 
 
+/**
+ * Class Game
+ * @package Relisoft\Steam\Src\Api
+ */
 class Game
 {
+    /**
+     * @var
+     */
     private $appid;
+    /**
+     * @var
+     */
     private $name;
+    /**
+     * @var
+     */
     private $playtime_forever;
+    /**
+     * @var
+     */
     private $playtime_2weeks;
+    /**
+     * @var
+     */
     private $img_icon_url;
+    /**
+     * @var
+     */
     private $img_logo_url;
 
+    /**
+     * Game constructor.
+     * @param null $appid
+     */
     public function __construct($appid = null)
     {
         $this->setAppid($appid);

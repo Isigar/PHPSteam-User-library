@@ -1,18 +1,18 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: relisoft
- * Date: 24.7.2017
- * Time: 16:07
- */
-
 namespace Relisoft\Steam\Src\Api;
 
 
 class Friends
 {
+    /**
+     * @var
+     */
     private $friendlist;
 
+    /**
+     * @param $data
+     * @return $this
+     */
     public function setFriends($data)
     {
         foreach($data as $friend)

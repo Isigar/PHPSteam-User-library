@@ -9,6 +9,10 @@
 namespace Relisoft\Steam\Src\Api;
 
 
+/**
+ * Class ApiException
+ * @package Relisoft\Steam\Src\Api
+ */
 class ApiException extends \Exception
 {
 

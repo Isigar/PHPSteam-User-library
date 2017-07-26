@@ -11,24 +11,81 @@ namespace Relisoft\Steam\Src\Api;
 
 class ItemDescription
 {
+    /**
+     * @var int
+     */
     private $appid;
+    /**
+     * @var int
+     */
     private $classid;
+    /**
+     * @var int
+     */
     private $instanceid;
+    /**
+     * @var string
+     */
     private $icon_url;
+    /**
+     * @var string
+     */
     private $icon_url_large;
+    /**
+     * @var string
+     */
     private $icon_drag_url;
+    /**
+     * @var string
+     */
     private $name;
+    /**
+     * @var string
+     */
     private $market_hash_name;
+    /**
+     * @var string
+     */
     private $market_name;
+    /**
+     * @var string
+     */
     private $name_color;
+    /**
+     * @var string
+     */
     private $background_color;
+    /**
+     * @var int
+     */
     private $type;
+    /**
+     * @var int
+     */
     private $tradable;
+    /**
+     * @var int
+     */
     private $marketable;
+    /**
+     * @var int
+     */
     private $commodity;
+    /**
+     * @var int
+     */
     private $market_tradable_restriction;
+    /**
+     * @var \stdClass
+     */
     private $actions;
+    /**
+     * @var \stdClass
+     */
     private $market_actions;
+    /**
+     * @var \stdClass
+     */
     private $tags;
 
     /**

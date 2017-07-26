@@ -9,14 +9,42 @@
 namespace Relisoft\Steam\Src\Api;
 
 
+/**
+ * Class Games
+ * @package Relisoft\Steam\Src\Api
+ */
+/**
+ * Class Games
+ * @package Relisoft\Steam\Src\Api
+ */
+/**
+ * Class Games
+ * @package Relisoft\Steam\Src\Api
+ */
 class Games
 {
+    /**
+     * Game ID
+     */
     const TF2 = "440";
+    /**
+     * Game ID
+     */
     const CSGO = "730";
 
+    /**
+     * @var \stdClass
+     */
     private $games;
+    /**
+     * @var int
+     */
     private $totalCount;
 
+    /**
+     * @param $appid
+     * @return int
+     */
     public function getGame($appid)
     {
         $iterator = 0;

@@ -110,7 +110,13 @@ class Request
         }
     }
 
-    public function getPlayerRecentlyPlayedGames(Player $player,$limit = 10)
+    /**
+     * @param Player $player
+     * @param int $limit
+     * @return Player
+     * @throws ApiException
+     */
+    public function getPlayerRecentlyPlayedGames(Player $player, $limit = 10)
     {
         if(is_null($player->getSteamid()))
         {
