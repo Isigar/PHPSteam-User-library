@@ -13,5 +13,10 @@
             "email": "info@relisoft.cz"
         }
     ],
+    "autoload": {
+        "psr-4": {
+            "Relisoft\\Steam\\": "src/"
+        }
+    },
     "minimum-stability": "stable"
 }
