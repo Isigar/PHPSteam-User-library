@@ -124,21 +124,22 @@ class Request
 
             if(Easy::isJson($data))
             {
-                $data = Json::decode($data)->response->games;
                 $total_count = Json::decode($clone)->response->total_count;
 
-                if(!isset($data))
+                if($total_count != 0)
                 {
-                    throw new ApiException("Player not exists! ".$player->getSteamid());
+                    $data = Json::decode($data)->response->games;
                 }
                 else
                 {
-                    $games = new Games();
-                    $games->setGames($data);
-                    $games->setTotalCount($total_count);
-                    $player->setGames($games);
-                    return $player;
+                    $data = null;
                 }
+
+                $games = new Games();
+                $games->setGames($data);
+                $games->setTotalCount($total_count);
+                $player->setGames($games);
+                return $player;
             }
             else
             {
