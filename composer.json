@@ -14,9 +14,9 @@
         }
     ],
     "autoload": {
-        "psr-4": {
-            "Relisoft\\Steam\\": "src/"
-        }
+        "classmap": [
+            "relisoft/steam/src"
+        ]
     },
     "minimum-stability": "stable"
 }
