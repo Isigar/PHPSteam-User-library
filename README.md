@@ -57,7 +57,65 @@ $player->getFriends()
 ```php
 Relisoft\Steam\Src\API\PersonaState::getVerbState($player->getPersonaState())
 ```
+## Login
+### Login button:
+> For this purpose i created Button class with two static function whitch will return source link to img.
+```php
+<div class="container">
+    <a href="{link login!}"><img src="{Relisoft\Steam\Src\Login\Button::rectangle()}"></a>
+</div>
+Relisoft\Steam\Src\Login\Button::rectangle()
+Relisoft\Steam\Src\Login\Button::square()
+```
+### Login function
+> For this i created class Login whitch use $session to store user data. You have to add your source of $session or use default $_SESSION. I did this because i am using nette/http in my all project with better session api.
+###### Create instance
+```php
+$this->login = new Login($this->session->getSection("steam"));
+OR
+$this->login = new Login($_SESSION);
+```
+###### Usage
+```php
+public function handleLogin()
+    {
+        $login = $this->login; 
+
+        if($login->isLogged()) // If is use logged in
+        {
+            $this->flashMessage("User is logged."); //Flash message like echo
+            $this->redirect("single",$this->session->getSection("steam")->user); // This you can edit for your purpose
+        }
+        else
+        {
+            $object = $login->auth(); // Auth user and return states
+
+            if($object) //IF SUCCESS RETURN STEAM ID
+            {
+                $this->flashMessage("successfuly logged in $object"); //Echo some text
+                $this->redirect("single",$object); // Redirect to another page with parameter $object -> returning STEAM ID
+            }
+            elseif($object == $login::FAILED)
+            {
+                $this->flashMessage("Steam is not logged in!"); //Echo that's failed
+                $this->redirect("this"); //Redirect
+            }
+            elseif($object == $login::CANCEL) //Echo that's your cancel process
+            {
+                $this->flashMessage("Cancel by user");
+                $this->redirect("this");
+            }
+        }
+    }
+```
+##### Login states:
+```php
+const CANCEL = "cancel";
+const SUCCESS = "success";
+const FAILED = "failed";
+```
 ### Depency:
-- Nette\Utils\Json
-- Nette\Object
+- nette/utils
+- nette/neon
+- nette/caching
 - PHP 5.4+
