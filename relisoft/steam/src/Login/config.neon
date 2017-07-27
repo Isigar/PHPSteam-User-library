@@ -1,0 +1,2 @@
+host: localhost #Your website host (https://relisoft.cz,localhost for testing)
+identity: http://steamcommunity.com/openid #Dont change
