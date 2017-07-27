@@ -12,6 +12,7 @@ composer require relisoft/php-steam-user-library
 * cache results
 * recently played games
 * inventory (with item details)
+* login via steam
 
 ### TODO:
 * achievement
