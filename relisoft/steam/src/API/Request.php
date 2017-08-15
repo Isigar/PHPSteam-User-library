@@ -41,7 +41,7 @@ class Request
         else
         {
             $url = 'http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key='.$this->key.'&steamids='.$player->getSteamid();
-            $data = file_get_contents($url);
+            $data = @file_get_contents($url);
             if(Easy::isJson($data))
             {
                 $data = Json::decode($data)->response->players;
@@ -83,7 +83,7 @@ class Request
         else
         {
             $url = 'http://api.steampowered.com/ISteamUser/GetFriendList/v0001/?key='.$this->key.'&steamid='.$player->getSteamid()."&relationship=friend";
-            $data = file_get_contents($url);
+            $data = @file_get_contents($url);
 
             if(Easy::isJson($data))
             {
@@ -125,7 +125,7 @@ class Request
         else
         {
             $url = 'http://api.steampowered.com/IPlayerService/GetRecentlyPlayedGames/v0001/?key='.$this->key.'&steamid='.$player->getSteamid()."&format=json";
-            $data = file_get_contents($url);
+            $data = @file_get_contents($url);
             $clone = $data;
 
             if(Easy::isJson($data))
@@ -163,23 +163,30 @@ class Request
         else
         {
             $url = $player->getProfileurl()."/inventory/json/".$game."/2";
-            $data = file_get_contents($url);
+            $data = @file_get_contents($url);
 
-            if(Easy::isJson($data))
+            if($data === FALSE)
             {
-                $decode = Json::decode($data);
-                $items = $decode->rgInventory;
-                $descriptions = $decode->rgDescriptions;
-                $success = $decode->success;
-
-                $inventory = new Inventory($items,$descriptions,count($items),$success);
-                $inventory->pairItems();
-                $player->setInventory($inventory);
-                return $player;
+                throw new ApiException("Too match request! Null given");
             }
             else
             {
-                throw new ApiException("Wrong format! ");
+                if(Easy::isJson($data))
+                {
+                    $decode = Json::decode($data);
+                    $items = $decode->rgInventory;
+                    $descriptions = $decode->rgDescriptions;
+                    $success = $decode->success;
+
+                    $inventory = new Inventory($items,$descriptions,count($items),$success);
+                    $inventory->pairItems();
+                    $player->setInventory($inventory);
+                    return $player;
+                }
+                else
+                {
+                    throw new ApiException("Wrong format! ");
+                }
             }
         }
     }
