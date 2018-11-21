@@ -8,15 +8,6 @@
 
 namespace Relisoft\Steam\Src\Api;
 
-
-/**
- * Class Games
- * @package Relisoft\Steam\Src\Api
- */
-/**
- * Class Games
- * @package Relisoft\Steam\Src\Api
- */
 /**
  * Class Games
  * @package Relisoft\Steam\Src\Api

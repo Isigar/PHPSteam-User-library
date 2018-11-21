@@ -1,11 +1,12 @@
 <?php
 namespace Relisoft\Steam\Src;
 
+use Nette\SmartObject;
 
-use Nette\Object;
-
-class Easy extends Object
+class Easy
 {
+    use SmartObject;
+
     public static function isJson($data)
     {
         if(is_array($data)) {

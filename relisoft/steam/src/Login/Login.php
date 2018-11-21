@@ -11,10 +11,12 @@ namespace Relisoft\Steam\Src\Login;
 use Nette\Caching\Cache;
 use Nette\Caching\Storages\FileStorage;
 use Nette\Neon\Neon;
-use Nette\Object;
+use Nette\SmartObject;
 
-class Login extends Object
+class Login
 {
+    use SmartObject;
+
     const CANCEL = "cancel";
     const SUCCESS = "success";
     const FAILED = "failed";
