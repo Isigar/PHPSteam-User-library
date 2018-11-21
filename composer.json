@@ -5,7 +5,7 @@
     "require": {
         "nette/utils": "^2.4",
         "nette/caching": "^2.4",
-        "nette/neon": "2.4"
+        "nette/neon": "^2.4"
     },
     "license": "MIT",
     "authors": [
